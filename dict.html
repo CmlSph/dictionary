@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to build a dictionary</title>
+    <link rel="stylesheet" type="text/css" href="dict.css">
+</head>
+<body>
+    <div class="header">
+        <h1>Dictionary</h1>
+    </div>
+    <div class="wrapper">
+        <div class="words">
+            <input type="text" id="search" placeholder="search ...">
+            <button onclick="search()">Go</button>
+            <ul id="word_list"></ul>
+
+        </div>
+        <div class="word">
+            <h3 id="word_text">word</h3>
+            <p id="definition"></p>
+            <hr>
+            <h3>related words:</h3>
+            <li id="related"></li>  
+        </div>
+    </div>
+    
+</body>
+</html>
+<script type="text/javascript">
+    var dictionary = [
+
+                        {
+                            word:"afwijken",
+                            def:"deviate; sapmak",
+                            rel:["week af", "weken af", "is afgeweken/geweken"]
+                        },
+                        {
+                            word:"ontbijten",
+                            def:"having breakfast/kahvalti yapmak",
+                            rel:["ontbeet(en)", "ontbeten", "gebeten"]
+                        },
+                        {
+                            word:"opbergen",
+                            def:"put away, store/ birakmak, saklamak",
+                            rel:["(op)borg(en)", "(op)geborgen", "Ik heb het geld goed opgeborgen"]
+                        },
+                        {
+                            word:"opwinden",
+                            def:"wind up/sarmak, yumak yapmak, kurmak/de veer opnieuw spannen/er een bol of kluwen van maken",
+                            rel:["opwond(en)", "opgewonden", "heb je de klok opgewonden?/wil je me helpen deze wol op te winden?"]
+                        },
+                        {
+                            word:"uitwringen",
+                            def:"wring out/suyunu sikmak/in een draaiende beweging uitknijpen",
+                            rel:["uitwrong(en)", "uitgewrongen", "Haal de doek door het sop en wring hem uit", "Swish the cloth and wring it out", "Bezi sabunlu sudan geçirin ve sıkın."]
+                        },
+                        {
+                            word:"verheffen",
+                            def:"uplift, elevate, raise/canlanma/boven de omgeving uitsteken/omhoog stijgen",
+                            rel:["verhief/verhieven", "verheven/geheven", "Hij verhief zich plotseling uit het water./He suddenly rose from the water./Aniden sudan yükseldi.","De stofwolken verhieven zich huizenhoog./The dust clouds rose sky high./Toz bulutları gökyüzüne yükseldi."]
+                        },
+                        {
+                            word:"verslijten",
+                            def:"A round fruit bla bla",
+                            rel:["mango", "pear", "guava"]
+                        },
+                        {
+                            word:"verwerpen",
+                            def:"An electronic device",
+                            rel:["laptop", "tablet", "palmtop"]
+                        },
+                        {
+                            word:"verwerven",
+                            def:"An insect",
+                            rel:["ant", "beetle", "butterfly"]
+                        },
+                        {
+                            word:"aanbevelen",
+                            def:"An insect",
+                            rel:["ant", "beetle", "butterfly"]
+                        },
+                        {
+                            word:"aanbieden",
+                            def:"A round fruit bla bla",
+                            rel:["mango", "pear", "guava"]
+                        },
+                        {
+                            word:"bakken",
+                            def:"An electronic device",
+                            rel:["laptop", "tablet", "palmtop"]
+                        },
+                        {
+                            word:"bederven",
+                            def:"An insect",
+                            rel:["ant", "beetle", "butterfly"]
+                        },
+                        {
+                            word:"bedragen",
+                            def:"An insect",
+                            rel:["ant", "beetle", "butterfly"]
+                        },
+                        {
+                            word:"bedriegen",
+                            def:"A round fruit bla bla",
+                            rel:["mango", "pear", "guava"]
+                        },
+                        {
+                            word:"beginnen",
+                            def:"An electronic device",
+                            rel:["laptop", "tablet", "palmtop"]
+                        },
+                        {
+                            word:"begrijpen",
+                            def:"An insect",
+                            rel:["ant", "beetle", "butterfly"]
+                        },
+                        {
+                            word:"bestrijden",
+                            def:"An insect",
+                            rel:["ant", "beetle", "butterfly"]
+                        },
+                        {
+                            word:"betreffen",
+                            def:"A round fruit bla bla",
+                            rel:["mango", "pear", "guava"]
+                        }
+                        
+                        
+                    ];
+        //fill the dictionary with
+        init = function(){
+            for (var i = 0; i < dictionary.length; i++){
+                document.getElementById('word_list').innerHTML += "<li onclick='show(" + i + ")'>" +
+                    dictionary[i].word + "</li>";
+        }
+    }
+
+//call the init function when page loads
+init();
+//display a word, its definition and related words
+show = function(i){
+    document.getElementById('word_text').innerHTML = dictionary[i].word;
+    document.getElementById('definition').innerHTML = dictionary[i].def;
+
+    var list = "";
+
+    for (var j = 0; j < dictionary[i].rel.length; j++){
+        list += "<li>" + dictionary[i].rel[j] + "</li>";
+        document.getElementById('related').innerHTML = list;
+    }
+}
+
+//show first word in the dictionary when page loads
+
+show(0);
+//search functionality
+search = function(){
+    query = document.getElementById('search').value;
+
+    if (query == "") {
+        return;
+    }
+
+    found = -1; //initialize found to false
+
+    for (var i = 0; i < dictionary.length; i++) {
+        if (query == dictionary[i].word) {
+            found = i;
+            break;
+        }else {
+            document.getElementById('word_text').innerHTML = "Word not found";
+            document.getElementById('definition').innerHTML = "The word you entered is not found in our dictionary";
+            document.getElementById('related').innerHTML = "No related words";
+        }
+    }
+    if (found >= 0){
+        show(found);
+    }
+}
+</script>
